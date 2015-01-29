@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+
+    "name": "Send iDone daily status",
+    "description": "This extension sends an email using iDoneThis",
+    "version": "1.0",
+
+    "browser_action": {
+        "default_icon": "clock.png",
+        "default_title": "Status through email",
+        "default_popup": "popup.html"
+    },
+
+    "permissions": [
+        "activeTab",
+        "https://ajax.googleapis.com/",
+        "notifications",
+        "storage"
+    ],
+
+    "content_scripts": [{
+        "matches": ["https://idonethis.com/*"],
+        "js": ["popup.js"]
+    }]
+}
