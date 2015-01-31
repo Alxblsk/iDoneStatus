@@ -1,7 +1,7 @@
 (function(App) {
     'use strict';
 
-    var token = 'token_should_be_here';
+    var token = window.token || 'token_should_be_here';
 
     function makeTestRequest() {
         var testRequest = App.request({
