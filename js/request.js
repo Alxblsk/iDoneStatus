@@ -2,7 +2,8 @@
     'use strict';
 
     var defaults = {
-        type: 'GET'
+        type: 'GET',
+        queries: {}
     };
 
     function setHeaders(xmlhttp, headers) {
@@ -13,13 +14,35 @@
         }
     }
 
+    function setRequestParams(url, queryParams) {
+        var link = document.createElement('a'),
+            params = [], joined;
+        link.href = url;
+
+        for (var paramName in queryParams) {
+            if (queryParams.hasOwnProperty(paramName)) {
+                params.push(paramName + '=' + queryParams[paramName]);
+            }
+        }
+
+        joined = params.join('&');
+
+        if (joined) {
+            link.search = (link.search.length ? '&' : '?') + joined;
+        }
+
+        return link.href;
+    }
+
 App.request = function(options) {
     options = App.extend(defaults, options || {});
 
     var xmlhttp = new XMLHttpRequest();
 
     return new Promise(function(resolve, reject) {
-        xmlhttp.open(options.type, options.url, true);
+        var url = setRequestParams(options.url, options.queries);
+
+        xmlhttp.open(options.type, url, true);
         options.headers && setHeaders(xmlhttp, options.headers);
         xmlhttp.send();
 

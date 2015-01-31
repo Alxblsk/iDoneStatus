@@ -7,7 +7,13 @@
     App.getDones = function() {
         var testRequest = App.request({
             type: 'GET',
-            url: 'https://idonethis.com/api/v0.1/dones/?team=fed&done_date=yesterday&tags=nextgen&page_size=100'
+            url: 'https://idonethis.com/api/v0.1/dones/',
+            queries: {
+                team: 'fed',
+                done_date: 'yesterday',
+                tags: 'nextgen',
+                page_size: 100
+            }
         });
 
         testRequest.then(donesRequestCallback);
