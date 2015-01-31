@@ -1,0 +1,55 @@
+(function(App) {
+    "use strict";
+
+    /**
+     * Make 'get dones' request
+     */
+    App.getDones = function() {
+        var testRequest = App.request({
+            type: 'GET',
+            url: 'https://idonethis.com/api/v0.1/dones/?team=fed&done_date=yesterday&tags=nextgen&page_size=100'
+        });
+
+        testRequest.then(donesRequestCallback);
+    };
+
+    /**
+     * Succes callback
+     * @param {Object} data Parsed response data
+     */
+    function donesRequestCallback(data) {
+        if (data.ok) {
+            parseDones(data.results);
+        }
+    }
+
+    /**
+     * Parse and display requested dones
+     * @param {Array} results List of dones
+     */
+    function parseDones(results) {
+        var donesNode = document.querySelector('#getDonesButton::shadow #donesResponse');
+        var donesHtml = '';
+        var parsedResults = {};
+
+        results.forEach(function(item) {
+            if (!(item.owner in parsedResults)) {
+                parsedResults[item.owner] = [];
+            }
+            parsedResults[item.owner].push(item);
+        });
+
+        for (var ownerName in parsedResults) {
+            var itemHtml = '';
+            itemHtml += '<h3>' + ownerName + '</h3>';
+
+            parsedResults[ownerName].forEach(function(item) {
+                itemHtml += '<p>' + (item.is_goal ? 'goal' : 'done') + ': ' + item.markedup_text + '</p>';
+            });
+
+            donesHtml += itemHtml;
+        }
+
+        donesNode.innerHTML = donesHtml;
+    }
+})(StatusApp);

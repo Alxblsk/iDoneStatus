@@ -3,7 +3,10 @@
 
     var token = window.token || 'token_should_be_here';
 
-    function makeTestRequest() {
+    /**
+     * Authentication request
+     */
+    function makeConnectionRequest() {
         var testRequest = App.request({
             type: 'GET',
             url: 'https://idonethis.com/api/v0.1/noop/',
@@ -12,10 +15,14 @@
             }
         });
 
-        testRequest.then(testRequestCallback);
+        testRequest.then(testConnectionCallback, testConnectionError);
     }
 
-    function testRequestCallback(data) {
+    /**
+     * Success callback, if connection is established. Display 'get status' button
+     * @param {Object} data Dones for requested period
+     */
+    function testConnectionCallback(data) {
         var testNode = document.getElementById("testResponse"),
             shadow = document.querySelector('#getDonesButton').createShadowRoot(),
             link = document.querySelector('link[rel="import"]'),
@@ -25,56 +32,27 @@
         if (data.ok) {
             shadow.appendChild(clone);
             shadow.querySelector('button').addEventListener('click', function() {
-                makeDonesRequest();
+                App.getDones();
             }, false);
         } else {
-            testNode.innerHTML ="error connecting to iDone server";
+            testNode.innerHTML ="error connecting to iDoneThis server. Response error";
         }
     }
 
+    /**
+     * If something goes wrong, display an error message instead
+     * @param data
+     */
+    function testConnectionError(data) {
+        var testNode = document.getElementById("testResponse");
+        testNode.innerHTML = "error connecting to iDoneThis server. Request error";
+    }
+
+    /**
+     * Initial request
+     */
     function init() {
-        makeTestRequest();
-    }
-
-    function makeDonesRequest() {
-        var testRequest = App.request({
-            type: 'GET',
-            url: 'https://idonethis.com/api/v0.1/dones/?team=fed&done_date=yesterday&tags=nextgen&page_size=100'
-        });
-
-        testRequest.then(donesRequestCallback);
-    }
-
-    function donesRequestCallback(data) {
-        if (data.ok) {
-            parseDones(data.results);
-        }
-    }
-
-    function parseDones(results) {
-        var donesNode = document.querySelector('#getDonesButton::shadow #donesResponse');;
-        var donesHtml = '';
-        var parsedResults = {};
-
-        results.forEach(function(item) {
-            if (!(item.owner in parsedResults)) {
-                parsedResults[item.owner] = [];
-            }
-            parsedResults[item.owner].push(item);
-        });
-
-        for (var ownerName in parsedResults) {
-            var itemHtml = '';
-            itemHtml += '<h3>' + ownerName + '</h3>';
-
-            parsedResults[ownerName].forEach(function(item) {
-                itemHtml += '<p>' + (item.is_goal ? 'goal' : 'done') + ': ' + item.markedup_text + '</p>';
-            });
-
-            donesHtml += itemHtml;
-        }
-
-        donesNode.innerHTML = donesHtml;
+        makeConnectionRequest();
     }
 
     init();
