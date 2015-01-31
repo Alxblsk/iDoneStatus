@@ -1,23 +1,22 @@
-(function() {
+(function(App) {
+    'use strict';
+
     var token = 'token_should_be_here';
 
     function makeTestRequest() {
-        var xmlhttp = new XMLHttpRequest();
-
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-                testRequestCallback(xmlhttp.response);
+        var testRequest = App.request({
+            type: 'GET',
+            url: 'https://idonethis.com/api/v0.1/noop/',
+            headers: {
+                Authorization: 'Token ' + token
             }
-        };
+        });
 
-        xmlhttp.open("GET","https://idonethis.com/api/v0.1/noop/", true);
-        xmlhttp.setRequestHeader('Authorization', 'Token ' + token);
-        xmlhttp.send();
+        testRequest.then(testRequestCallback);
     }
 
-    function testRequestCallback(response) {
-        var data = JSON.parse(response),
-            testNode = document.getElementById("testResponse"),
+    function testRequestCallback(data) {
+        var testNode = document.getElementById("testResponse"),
             appNode = document.getElementById("getDones");
 
         if (data.ok) {
@@ -35,23 +34,17 @@
     }
 
     function makeDonesRequest() {
-        var xmlhttp = new XMLHttpRequest();
+        var testRequest = App.request({
+            type: 'GET',
+            url: 'https://idonethis.com/api/v0.1/dones/?team=fed&done_date=today&tags=nextgen&page_size=100'
+        });
 
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-                donesRequestCallback(xmlhttp.response);
-            }
-        };
-
-        xmlhttp.open("GET","https://idonethis.com/api/v0.1/dones/?team=fed&done_date=today&tags=nextgen&page_size=100", true);
-        xmlhttp.send();
+        testRequest.then(donesRequestCallback);
     }
 
-    function donesRequestCallback(response) {
-        var data = JSON.parse(response);
-
+    function donesRequestCallback(data) {
         if (data.ok) {
-            parseDones(JSON.parse(response).results);
+            parseDones(data.results);
         }
     }
 
@@ -82,4 +75,4 @@
     }
 
     init();
-})();
+})(StatusApp);

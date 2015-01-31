@@ -20,6 +20,6 @@
 
     "content_scripts": [{
         "matches": ["https://idonethis.com/*"],
-        "js": ["popup.js"]
+        "js": ["js/namespace.js", "js/extend.js", "js/request.js", "js/popup.js"]
     }]
 }
