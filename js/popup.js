@@ -2,6 +2,7 @@
     'use strict';
 
     var token = 'token_should_be_here';
+    var token = 'a85cb100a4b7322e96e60c01a83eaf1624cd0b57';
 
     function makeTestRequest() {
         var testRequest = App.request({
@@ -17,11 +18,14 @@
 
     function testRequestCallback(data) {
         var testNode = document.getElementById("testResponse"),
-            appNode = document.getElementById("getDones");
+            shadow = document.querySelector('#getDonesButton').createShadowRoot(),
+            link = document.querySelector('link[rel="import"]'),
+            template = link.import.querySelector("#getDonesTemplate"),
+            clone = document.importNode(template.content, true);
 
         if (data.ok) {
-                appNode.classList.remove('hide');
-                appNode.addEventListener('click', function() {
+            shadow.appendChild(clone);
+            shadow.querySelector('button').addEventListener('click', function() {
                 makeDonesRequest();
             }, false);
         } else {
@@ -36,7 +40,7 @@
     function makeDonesRequest() {
         var testRequest = App.request({
             type: 'GET',
-            url: 'https://idonethis.com/api/v0.1/dones/?team=fed&done_date=today&tags=nextgen&page_size=100'
+            url: 'https://idonethis.com/api/v0.1/dones/?team=fed&done_date=yesterday&tags=nextgen&page_size=100'
         });
 
         testRequest.then(donesRequestCallback);
@@ -49,7 +53,7 @@
     }
 
     function parseDones(results) {
-        var donesNode = document.getElementById("donesResponse");
+        var donesNode = document.querySelector('#getDonesButton::shadow #donesResponse');;
         var donesHtml = '';
         var parsedResults = {};
 

@@ -2,15 +2,6 @@
     width: 400px;
 }
 
-.getDones {
-    border: 1px solid #5E90D2;
-    background-color: #E7EFF9;
-    padding: 5px 10px;
-    border-radius: 3px;
-    color: #184774;
-    cursor: pointer;
-}
-
 .hide {
     display: none;
 }
