@@ -2,7 +2,6 @@
     'use strict';
 
     var token = 'token_should_be_here';
-    var token = 'a85cb100a4b7322e96e60c01a83eaf1624cd0b57';
 
     function makeTestRequest() {
         var testRequest = App.request({
