@@ -32,7 +32,9 @@
         if (data.ok) {
             shadow.appendChild(clone);
             shadow.querySelector('button').addEventListener('click', function() {
-                App.getDones();
+                App.getDones({
+                    done_date: shadow.querySelector('#doneDate').value
+                });
             }, false);
         } else {
             testNode.innerHTML ="error connecting to iDoneThis server. Response error";
