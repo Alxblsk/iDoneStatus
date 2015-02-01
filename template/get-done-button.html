@@ -1,17 +1,33 @@
 <template id="getDonesTemplate">
     <style>
-        .getDones {
+        .request-form__date,
+        .request-form__hashtag,
+        .request-form__get {
+            width: 160px;
+            margin: 5px 0 0 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .request-form__hashtag {
+            height: 24px;
+        }
+
+        .request-form__get {
             border: 1px solid #5E90D2;
-            background-color: #E7EFF9;
             padding: 5px 10px;
-            border-radius: 3px;
             color: #184774;
+            background-color: #E7EFF9;
             cursor: pointer;
+            border-radius: 3px;
         }
     </style>
-    <div id="getDones">
-        <input type="date" id="doneDate">
-        <button class="getDones">Get NEXTGEN dones</button>
+    <div id="getDones" class="request-form">
+        <input type="date" id="doneDate" class="request-form__date">
+        <br>
+        <input type="text" placeholder="#tag" id="hashtag" class="request-form__hashtag">
+        <br>
+        <button class="request-form__get">Get NEXTGEN dones</button>
         <p id="donesResponse"></p>
     </div>
 </template>

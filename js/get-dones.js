@@ -10,7 +10,7 @@
             url: 'https://idonethis.com/api/v0.1/dones/',
             queries: {
                 team: 'fed',
-                tags: 'nextgen',
+                tags: params.tags || '',
                 page_size: 100,
                 done_date: params.done_date || 'today'
             }

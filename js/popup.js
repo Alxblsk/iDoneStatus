@@ -33,7 +33,8 @@
             shadow.appendChild(clone);
             shadow.querySelector('button').addEventListener('click', function() {
                 App.getDones({
-                    done_date: shadow.querySelector('#doneDate').value
+                    done_date: shadow.querySelector('#doneDate').value,
+                    tags: shadow.querySelector('#hashtag').value
                 });
             }, false);
         } else {
