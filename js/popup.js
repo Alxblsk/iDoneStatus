@@ -31,6 +31,9 @@
 
         if (data.ok) {
             shadow.appendChild(clone);
+            shadow.querySelector('#hamburger').addEventListener('click', function(event) {
+                event.target.classList.toggle('active');
+            }, false);
             shadow.querySelector('button').addEventListener('click', function() {
                 App.getDones({
                     done_date: shadow.querySelector('#doneDate').value,
