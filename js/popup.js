@@ -30,6 +30,7 @@
             clone = document.importNode(template.content, true);
 
         if (data.ok) {
+            testNode.classList.add('hide');
             shadow.appendChild(clone);
             shadow.querySelector('#hamburger').addEventListener('click', function(event) {
                 event.target.classList.toggle('active');
@@ -41,7 +42,7 @@
                 });
             }, false);
         } else {
-            testNode.innerHTML ="error connecting to iDoneThis server. Response error";
+            testNode.innerHTML = "error connecting to iDoneThis server. Response error";
         }
     }
 
