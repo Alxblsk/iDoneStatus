@@ -24,9 +24,15 @@
      * @param {Object} data Parsed response data
      */
     function donesRequestCallback(data) {
-        if (data.ok) {
+        if (data.ok && data.results.length) {
             parseDones(data.results);
+        } else {
+            getDonesNode().innerText = 'No results';
         }
+    }
+
+    function getDonesNode() {
+        return document.querySelector('#getDonesButton::shadow #donesResponse');
     }
 
     /**
@@ -34,7 +40,7 @@
      * @param {Array} results List of dones
      */
     function parseDones(results) {
-        var donesNode = document.querySelector('#getDonesButton::shadow #donesResponse');
+        var donesNode = getDonesNode();
         var donesHtml = '';
         var parsedResults = {};
 
@@ -57,5 +63,6 @@
         }
 
         donesNode.innerHTML = donesHtml;
+        localStorage.setItem('last', donesHtml);
     }
 })(StatusApp);

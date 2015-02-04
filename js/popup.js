@@ -41,6 +41,9 @@
                     tags: shadow.querySelector('#hashtag').value
                 });
             }, false);
+
+            var lastResponse = localStorage.getItem('last');
+            lastResponse && (shadow.querySelector('#donesResponse').innerHTML = lastResponse);
         } else {
             testNode.innerHTML = "error connecting to iDoneThis server. Response error";
         }
