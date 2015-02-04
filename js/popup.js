@@ -25,12 +25,17 @@
     function testConnectionCallback(data) {
         var testNode = document.getElementById("testResponse"),
             shadow = document.querySelector('#getDonesButton').createShadowRoot(),
-            link = document.querySelector('link[rel="import"]'),
+            link = document.querySelector('link#link__getDoneForm'),
             template = link.import.querySelector("#getDonesTemplate"),
             clone = document.importNode(template.content, true);
 
+        var header = document.querySelector('link#link__header'),
+            headerTemplate = header.import.querySelector("#headerTemplate"),
+            headerClone = document.importNode(headerTemplate.content, true);
+
         if (data.ok) {
             testNode.classList.add('hide');
+            shadow.appendChild(headerClone);
             shadow.appendChild(clone);
             shadow.querySelector('#hamburger').addEventListener('click', function(event) {
                 event.target.classList.toggle('active');

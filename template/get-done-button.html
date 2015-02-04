@@ -1,71 +1,5 @@
 <template id="getDonesTemplate">
     <style>
-        .header {
-            position: relative;
-            background: #eee;
-            padding: 5px;
-            border-bottom: 2px solid #4a90e2;
-        }
-
-        .header__hamburger {
-            display: inline-block;
-            height: 25px;
-            font-size: 23px;
-            line-height: 21px;
-            vertical-align: top;
-            padding: 2px 5px;
-            cursor: pointer;
-        }
-
-        .header__hamburger:hover,
-        .header__item:hover {
-            background: whitesmoke;
-        }
-
-        .header__hamburger:active,
-        .header__item:active {
-            background: white;
-        }
-
-        .header__hamburger + .header__items {
-            display: none;
-        }
-
-        .header__hamburger.active + .header__items {
-            display: inline-block;
-        }
-
-        .header__items {
-            display: inline-block;
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-        }
-
-        .header__item {
-            display: inline-block;
-            height: 25px;
-            padding: 2px 5px;
-            line-height: 25px;
-            font-size: 14px;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-
-        .header__user {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-
-        .header__user:after {
-            content: "→";
-            display: inline-block;
-            margin-left: 5px;
-            vertical-align: top;
-        }
-
         .request-form__date,
         .request-form__hashtag,
         .request-form__get {
@@ -89,15 +23,7 @@
             border-radius: 3px;
         }
     </style>
-    <div class="header">
-        <div class="header__hamburger" id="hamburger">&#9776;</div>
-        <ul class="header__items">
-            <li class="header__item">Filter</li>
-            <li class="header__item">Report</li>
-            <li class="header__item">Options</li>
-        </ul>
-        <div class="header__user">abelski</div>
-    </div>
+
     <div id="getDones" class="request-form">
         <input type="date" id="doneDate" class="request-form__date">
         <input type="text" placeholder="#tag" id="hashtag" class="request-form__hashtag">
