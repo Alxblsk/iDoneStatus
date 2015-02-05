@@ -34,17 +34,22 @@
         return link.href;
     }
 
+
 App.request = function(options) {
     options = App.extend(defaults, options || {});
 
-    var xmlhttp = new XMLHttpRequest();
+    var xmlhttp = new XMLHttpRequest(), data;
 
     return new Promise(function(resolve, reject) {
         var url = setRequestParams(options.url, options.queries);
 
         xmlhttp.open(options.type, url, true);
         options.headers && setHeaders(xmlhttp, options.headers);
-        xmlhttp.send();
+        if (options.data) {
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            data = JSON.stringify(options.data);
+        }
+        xmlhttp.send(data);
 
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState === 4 ) {

@@ -28,6 +28,7 @@
             "js/extend.js",
             "js/request.js",
             "js/get-dones.js",
+            "js/send-report.js",
             "js/popup.js"
         ]
     }]

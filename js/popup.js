@@ -46,6 +46,11 @@
                     tags: shadow.querySelector('#hashtag').value
                 });
             }, false);
+            shadow.querySelector('#sendMail').addEventListener('click', function() {
+                App.sendReport({
+                    html: localStorage.getItem('last')
+                })
+            }, false);
 
             var lastResponse = localStorage.getItem('last');
             lastResponse && (shadow.querySelector('#donesResponse').innerHTML = lastResponse);
