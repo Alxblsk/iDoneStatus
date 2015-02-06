@@ -32,7 +32,7 @@
     }
 
     function getDonesNode() {
-        return document.querySelector('#getDonesButton::shadow #donesResponse');
+        return document.querySelector('#donesResponse');
     }
 
     /**
