@@ -32,10 +32,17 @@
         .request-form__date {
             flex-basis: 130px;
             flex-grow: 2;
+            font-family: Helvetica, Arial, sans-serif;
         }
 
         .request-form__date::-webkit-inner-spin-button {
             display: none;
+        }
+        .request-form__date::-webkit-clear-button {
+            position: relative;
+            right: 3px;
+            margin-top: -1px;
+            cursor: pointer;
         }
 
         .request-form__hashtag {
@@ -51,11 +58,18 @@
             background-color: #5D99E5;
             cursor: pointer;
         }
+        .request-form__get:active {
+            background-color: #538CD3;
+        }
+        .request-form__get:focus,
+        .request-form__get:active {
+            outline: 0 none;
+        }
     </style>
 
     <div id="getDones" class="request-form">
         <input type="date" id="doneDate" class="request-form__date">
-        <input type="text" placeholder="#tag" id="hashtag" class="request-form__hashtag">
+        <input type="text" placeholder="tags (comma-separated)" id="hashtag" class="request-form__hashtag">
         <button class="request-form__get" id="getDonesButton">GET</button>
     </div>
 </template>

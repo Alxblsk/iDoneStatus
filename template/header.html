@@ -13,38 +13,6 @@
             justify-content: space-between;
         }
 
-        .header__menu {
-            display: inherit;
-            align-items: center;
-        }
-
-        .header__hamburger {
-            display: inline-block;
-            height: 25px;
-            font-size: 23px;
-            line-height: 21px;
-            padding: 2px 5px;
-            cursor: pointer;
-        }
-
-        .header__hamburger:hover,
-        .header__item:hover {
-            background: whitesmoke;
-        }
-
-        .header__hamburger:active,
-        .header__item:active {
-            background: white;
-        }
-
-        .header__hamburger + .header__items {
-            display: none;
-        }
-
-        .header__hamburger.active + .header__items {
-            display: inline-block;
-        }
-
         .header__items {
             display: inline-block;
             margin: 0;
@@ -80,14 +48,11 @@
     </style>
     <div class="header">
         <div class="header__display">
-            <div class="header__menu">
-                <div class="header__hamburger" id="hamburger">&#9776;</div>
-                <ul class="header__items">
-                    <li class="header__item" id="filterDones">Filter</li>
-                    <li class="header__item" id="sendMail">Report</li>
-                    <li class="header__item">Options</li>
-                </ul>
-            </div>
+            <ul class="header__items">
+                <li class="header__item" id="filterDones">Filter</li>
+                <li class="header__item" id="sendMail">Report</li>
+                <li class="header__item">Options</li>
+            </ul>
             <div class="header__user">abelski</div>
         </div>
         <div class="configure" id="configure"></div>

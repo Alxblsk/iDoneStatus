@@ -37,14 +37,6 @@
      *
      * @param event
      */
-    function togglehamburger(event) {
-        event.target.classList.toggle('active');
-    }
-
-    /**
-     *
-     * @param event
-     */
     function getDones(event) {
         App.getDones({
             done_date: wrapper.querySelector('#doneDate').value,
@@ -94,7 +86,6 @@
         testNode.classList.add('hide');
         wrapper.appendChild(headerClone);
         wrapper.appendChild(clone);
-        wrapper.querySelector('#hamburger').addEventListener('click', togglehamburger, false);
         wrapper.querySelector('#sendMail').addEventListener('click', sendReport, false);
         wrapper.querySelector('#filterDones').addEventListener('click', filterDones, false);
 
@@ -130,6 +121,7 @@
      */
     function init() {
         makeConnectionRequest();
+        preparePopup();
     }
 
     init();
