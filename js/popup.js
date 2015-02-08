@@ -94,7 +94,6 @@
         wrapper.querySelector('#profile').appendChild(profileClone);
         wrapper.querySelector('#sendMail').addEventListener('click', sendReport, false);
         wrapper.querySelector('#filterDones').addEventListener('click', filterDones, false);
-        wrapper.querySelector('#login').addEventListener('click', login, false);
 
         loadLastResponse();
     }

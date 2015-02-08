@@ -43,26 +43,58 @@
         var donesNode = getDonesNode();
         var donesHtml = '';
         var parsedResults = {};
+        var users = [];
 
         results.forEach(function(item) {
-            if (!(item.owner in parsedResults)) {
-                parsedResults[item.owner] = [];
+            var owner = item.owner;
+
+            if (!(owner in parsedResults)) {
+                parsedResults[owner] = [];
+                users.push(owner);
             }
-            parsedResults[item.owner].push(item);
+
+            parsedResults[owner].push(item);
         });
 
-        for (var ownerName in parsedResults) {
-            var itemHtml = '';
-            itemHtml += '<h3>' + ownerName + '</h3>';
+        var profiles = getUserProfiles(users);
 
-            parsedResults[ownerName].forEach(function(item) {
-                itemHtml += '<p class="'+ (item.is_goal ? 'goal' : 'done') + '">' + item.markedup_text + '</p>';
-            });
+        profiles.then(function(data) {
+            var currentProfiles = JSON.parse(localStorage.getItem('profiles')) || {};
 
-            donesHtml += itemHtml;
-        }
+            for (var ownerName in parsedResults) {
+                var itemHtml = '';
+                itemHtml += '<h3>' + currentProfiles[ownerName].nicest_name + '</h3>';
 
-        donesNode.innerHTML = donesHtml;
-        localStorage.setItem('last', donesHtml);
+                parsedResults[ownerName].forEach(function(item) {
+                    itemHtml += '<p class="'+ (item.is_goal ? 'goal' : 'done') + '">' + item.markedup_text + '</p>';
+                });
+
+                donesHtml += itemHtml;
+            }
+
+            donesNode.innerHTML = donesHtml;
+            localStorage.setItem('last', donesHtml);
+        });
+    }
+
+    function getUserProfiles(usernames) {
+        var currentProfiles = JSON.parse(localStorage.getItem('profiles')) || {},
+            requests = [];
+
+        usernames.forEach(function(user) {
+             if (!(user in currentProfiles)) {
+                 var request = App.request({
+                     type: 'GET',
+                     url: 'https://idonethis.com/api/v0.1/users/' + user + '/'
+                 });
+                 request.then(function(data) {
+                    data.ok && (currentProfiles[user] = data.result);
+                     localStorage.setItem('profiles', JSON.stringify(currentProfiles));
+                 });
+                 requests.push(request);
+             }
+        });
+
+        return Promise.all(requests)
     }
 })(StatusApp);
