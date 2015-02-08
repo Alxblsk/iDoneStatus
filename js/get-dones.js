@@ -56,7 +56,7 @@
             itemHtml += '<h3>' + ownerName + '</h3>';
 
             parsedResults[ownerName].forEach(function(item) {
-                itemHtml += '<p>' + (item.is_goal ? 'goal' : 'done') + ': ' + item.markedup_text + '</p>';
+                itemHtml += '<p class="'+ (item.is_goal ? 'goal' : 'done') + '">' + item.markedup_text + '</p>';
             });
 
             donesHtml += itemHtml;

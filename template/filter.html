@@ -1,32 +1,61 @@
 <template id="filterTemplate">
     <style>
+        .request-form {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 5px;
+        }
+
+        .request-form > input:focus {
+            background: #FFF;
+            outline: 0 none;
+            box-shadow: 0 0 1px #5D99E5;
+        }
+
         .request-form__date,
         .request-form__hashtag,
         .request-form__get {
-            width: 140px;
-            margin: 5px 0 0 0;
-            padding: 0;
+            width: 135px;
+            margin-top: 5px;
+            border: 0 none;
+            padding: 0 5px;
             box-sizing: border-box;
+            background-color: #F9F9F9;
+        }
+
+        .request-form__date,
+        .request-form__hashtag {
+            height: 30px;
+            margin-right: 5px;
+        }
+
+        .request-form__date {
+            flex-basis: 130px;
+            flex-grow: 2;
+        }
+
+        .request-form__date::-webkit-inner-spin-button {
+            display: none;
         }
 
         .request-form__hashtag {
-            height: 24px;
+            flex-basis: 170px;
+            flex-grow: 3;
         }
 
         .request-form__get {
-            width: 110px;
-            border: 1px solid #5E90D2;
-            padding: 5px 10px;
-            color: #184774;
-            background-color: #E7EFF9;
+            flex-basis: 90px;
+            flex-grow: 1;
+            height: 30px;
+            color: #F4F4F4;
+            background-color: #5D99E5;
             cursor: pointer;
-            border-radius: 3px;
         }
     </style>
 
     <div id="getDones" class="request-form">
         <input type="date" id="doneDate" class="request-form__date">
         <input type="text" placeholder="#tag" id="hashtag" class="request-form__hashtag">
-        <button class="request-form__get" id="getDonesButton">GET DONES</button>
+        <button class="request-form__get" id="getDonesButton">GET</button>
     </div>
 </template>

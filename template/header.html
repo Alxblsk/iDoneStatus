@@ -1,10 +1,21 @@
 <template id="headerTemplate">
     <style>
         .header {
-            position: relative;
             background: #eee;
-            padding: 5px;
+            padding: 5px 5px 0;
             border-bottom: 2px solid #4a90e2;
+        }
+
+        .header__display {
+            display: flex;
+            padding-bottom: 5px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header__menu {
+            display: inherit;
+            align-items: center;
         }
 
         .header__hamburger {
@@ -12,7 +23,6 @@
             height: 25px;
             font-size: 23px;
             line-height: 21px;
-            vertical-align: top;
             padding: 2px 5px;
             cursor: pointer;
         }
@@ -45,7 +55,7 @@
         .header__item {
             display: inline-block;
             height: 25px;
-            padding: 2px 5px;
+            padding: 0 5px;
             line-height: 25px;
             font-size: 14px;
             text-transform: uppercase;
@@ -53,9 +63,6 @@
         }
 
         .header__user {
-            position: absolute;
-            top: 10px;
-            right: 10px;
             cursor: pointer;
         }
 
@@ -63,17 +70,26 @@
             content: "→";
             display: inline-block;
             margin-left: 5px;
-            vertical-align: top;
+        }
+
+        .configure {
+            margin: 0 -10px;
+            padding: 0 10px;
+            background-color: #ddd;
         }
     </style>
     <div class="header">
-        <div class="header__hamburger" id="hamburger">&#9776;</div>
-        <ul class="header__items">
-            <li class="header__item" id="filterDones">Filter</li>
-            <li class="header__item" id="sendMail">Report</li>
-            <li class="header__item">Options</li>
-        </ul>
-        <div class="header__user">abelski</div>
+        <div class="header__display">
+            <div class="header__menu">
+                <div class="header__hamburger" id="hamburger">&#9776;</div>
+                <ul class="header__items">
+                    <li class="header__item" id="filterDones">Filter</li>
+                    <li class="header__item" id="sendMail">Report</li>
+                    <li class="header__item">Options</li>
+                </ul>
+            </div>
+            <div class="header__user">abelski</div>
+        </div>
+        <div class="configure" id="configure"></div>
     </div>
-    <div class="configure" id="configure"></div>
 </template>

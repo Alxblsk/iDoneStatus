@@ -1,3 +1,34 @@
 <template id="donesTemplate">
-    <p id="donesResponse"></p>
+    <style>
+        .dones {
+            padding: 0 10px;
+        }
+
+        .dones > h3 {
+            margin-bottom: 2px;
+
+        }
+
+        .dones > p {
+            position: relative;
+            margin: 0;
+            line-height: 140%;;
+            padding-left: 15px;
+            padding-bottom: 6px;
+        }
+
+        .done:before {
+            content: '✓';
+        }
+        .goal:before {
+            content: '☐';
+        }
+        .done:before,
+        .goal:before {
+            position: absolute;
+            left: 0;
+            padding-right: 5px;
+        }
+    </style>
+    <p id="donesResponse" class="dones"></p>
 </template>
