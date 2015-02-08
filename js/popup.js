@@ -76,18 +76,25 @@
         }
     }
 
+    function login() {
+        console.log('login button');
+    }
+
     /**
      *
      */
     function preparePopup() {
         var clone = getTemplateContent('#link__dones', '#donesTemplate'),
-            headerClone = getTemplateContent('#link__header', '#headerTemplate');
+            headerClone = getTemplateContent('#link__header', '#headerTemplate'),
+            profileClone = getTemplateContent('#link__profile', '#profileTemplate');
 
         testNode.classList.add('hide');
         wrapper.appendChild(headerClone);
         wrapper.appendChild(clone);
+        wrapper.querySelector('#profile').appendChild(profileClone);
         wrapper.querySelector('#sendMail').addEventListener('click', sendReport, false);
         wrapper.querySelector('#filterDones').addEventListener('click', filterDones, false);
+        wrapper.querySelector('#login').addEventListener('click', login, false);
 
         loadLastResponse();
     }
@@ -121,7 +128,6 @@
      */
     function init() {
         makeConnectionRequest();
-        preparePopup();
     }
 
     init();
