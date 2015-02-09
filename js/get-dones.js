@@ -97,6 +97,7 @@
                         .replace('{ownerId}', item);
                 }
             });
+            localStorage.setItem('last', donesNode.innerHTML);
         });
 
         for (var ownerName in parsedResults) {
