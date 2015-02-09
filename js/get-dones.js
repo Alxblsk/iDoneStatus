@@ -35,6 +35,10 @@
         return document.querySelector('#donesResponse');
     }
 
+    function getUserId(id) {
+        return id.split('@')[0];
+    }
+
     /**
      * Parse and display requested dones
      * @param {Array} results List of dones
@@ -60,21 +64,24 @@
 
         profiles.then(function(data) {
             var currentProfiles = JSON.parse(localStorage.getItem('profiles')) || {};
-
-            for (var ownerName in parsedResults) {
-                var itemHtml = '';
-                itemHtml += '<h3>' + currentProfiles[ownerName].nicest_name + '</h3>';
-
-                parsedResults[ownerName].forEach(function(item) {
-                    itemHtml += '<p class="'+ (item.is_goal ? 'goal' : 'done') + '">' + item.markedup_text + '</p>';
-                });
-
-                donesHtml += itemHtml;
-            }
-
-            donesNode.innerHTML = donesHtml;
-            localStorage.setItem('last', donesHtml);
+            users.forEach(function(item) {
+                document.querySelector('#user_' + getUserId(item)).innerHTML = currentProfiles[item].nicest_name + ' <span class="user_owner">(' + item+ ')</span>';
+            });
         });
+
+        for (var ownerName in parsedResults) {
+            var itemHtml = '';
+            itemHtml += '<h3 id="user_' + getUserId(ownerName) + '">' + ownerName + '</h3>';
+
+            parsedResults[ownerName].forEach(function(item) {
+                itemHtml += '<p class="'+ (item.is_goal ? 'goal' : 'done') + '">' + item.markedup_text + '</p>';
+            });
+
+            donesHtml += itemHtml;
+        }
+
+        donesNode.innerHTML = donesHtml;
+        localStorage.setItem('last', donesHtml);
     }
 
     function getUserProfiles(usernames) {
@@ -95,6 +102,6 @@
              }
         });
 
-        return Promise.all(requests)
+        return Promise.all(requests);
     }
 })(StatusApp);
