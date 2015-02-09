@@ -1,6 +1,11 @@
 (function(App) {
     "use strict";
 
+    var PROFILE_HEADER = '<h3 id="user_{niceId}">{ownerId}</h3>';
+    var PROFILE_HEADER_INNER = '{niceName} <span class="user_owner">({ownerId})</span>';
+    var PROFILE_DONE = '<p class="{doneType}">{doneContent}</p>';
+
+
     /**
      * Make 'get dones' request
      */
@@ -31,12 +36,31 @@
         }
     }
 
+    /**
+     *
+     * @returns {HTMLElement}
+     */
     function getDonesNode() {
         return document.querySelector('#donesResponse');
     }
 
+    /**
+     *
+     * @param id
+     * @returns {*}
+     */
     function getUserId(id) {
         return id.split('@')[0];
+    }
+
+    /**
+     *
+     * @param id
+     * @returns {HTMLElement|null}
+     */
+    function getUserHeader(id) {
+        var node = document.querySelector('#user_' + getUserId(id));
+        return node || null;
     }
 
     /**
@@ -62,19 +86,30 @@
 
         var profiles = getUserProfiles(users);
 
-        profiles.then(function(data) {
+        profiles.then(function() {
             var currentProfiles = JSON.parse(localStorage.getItem('profiles')) || {};
+
             users.forEach(function(item) {
-                document.querySelector('#user_' + getUserId(item)).innerHTML = currentProfiles[item].nicest_name + ' <span class="user_owner">(' + item+ ')</span>';
+                var userHeader = getUserHeader(item);
+                if (userHeader) {
+                    userHeader.innerHTML = PROFILE_HEADER_INNER
+                        .replace('{niceName}', currentProfiles[item].nicest_name)
+                        .replace('{ownerId}', item);
+                }
             });
         });
 
         for (var ownerName in parsedResults) {
             var itemHtml = '';
-            itemHtml += '<h3 id="user_' + getUserId(ownerName) + '">' + ownerName + '</h3>';
+
+            itemHtml += PROFILE_HEADER
+                .replace('{niceId}', getUserId(ownerName))
+                .replace('{ownerId}', ownerName);
 
             parsedResults[ownerName].forEach(function(item) {
-                itemHtml += '<p class="'+ (item.is_goal ? 'goal' : 'done') + '">' + item.markedup_text + '</p>';
+                itemHtml += PROFILE_DONE
+                    .replace('{doneType}', item.is_goal ? 'goal' : 'done')
+                    .replace('{doneContent}', item.markedup_text);
             });
 
             donesHtml += itemHtml;
@@ -84,6 +119,11 @@
         localStorage.setItem('last', donesHtml);
     }
 
+    /**
+     *
+     * @param usernames
+     * @returns {*}
+     */
     function getUserProfiles(usernames) {
         var currentProfiles = JSON.parse(localStorage.getItem('profiles')) || {},
             requests = [];
