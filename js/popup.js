@@ -47,10 +47,23 @@
     /**
      *
      */
-    function sendReport() {
-        App.sendReport({
-            html: localStorage.getItem('last')
-        })
+    function reportDones(event) {
+        var button = event.target;
+        var filterClone = getTemplateContent('#link__report', '#reportTemplate');
+        var configurableArea = document.querySelector('#configure');
+
+        configurableArea.appendChild(filterClone);
+
+        var link = 'mailto:xxx@xx.com?cc=xxx@xx.com';
+        link += '&subject=Daily Status';
+        link += '&body=' + localStorage.getItem('lastText');
+        document.querySelector('#sendReportLink').href = link;
+
+        button.classList.toggle('header__item_open');
+
+        //App.sendReport({
+        //    html: localStorage.getItem('last')
+        //})
     }
 
     /**
@@ -94,7 +107,7 @@
         wrapper.appendChild(headerClone);
         wrapper.appendChild(clone);
         wrapper.querySelector('#profile').appendChild(profileClone);
-        wrapper.querySelector('#sendMail').addEventListener('click', sendReport, false);
+        wrapper.querySelector('#reportDones').addEventListener('click', reportDones, false);
         wrapper.querySelector('#filterDones').addEventListener('click', filterDones, false);
 
         loadLastResponse();
