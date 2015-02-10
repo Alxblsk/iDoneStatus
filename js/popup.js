@@ -64,7 +64,8 @@
         }
     }
 
-    function filterDones() {
+    function filterDones(event) {
+        var button = event.target;
         var filterClone = getTemplateContent('#link__filter', '#filterTemplate');
         var configurableArea = document.querySelector('#configure');
 
@@ -74,6 +75,7 @@
             configurableArea.appendChild(filterClone);
             document.querySelector('#getDonesButton').addEventListener('click', getDones, false);
         }
+        button.classList.toggle('header__item_open');
     }
 
     function login() {
