@@ -62,6 +62,14 @@
         return node || null;
     }
 
+    function isDone(item) {
+        return !item.is_goal || item.goal_completed;
+    }
+
+    function isGoal(item) {
+        return !isDone(item);
+    }
+
     /**
      * Parse and display requested dones
      * @param {Array} results List of dones
@@ -109,7 +117,7 @@
 
             parsedResults[ownerName].forEach(function(item) {
                 itemHtml += PROFILE_DONE
-                    .replace('{doneType}', item.is_goal ? 'goal' : 'done')
+                    .replace('{doneType}', isGoal(item) ? 'goal' : 'done')
                     .replace('{doneContent}', item.markedup_text);
             });
 
@@ -160,7 +168,7 @@
 
             parsedResults[ownerName].forEach(function(item) {
                 block.innerHTML = item.markedup_text;
-                itemText += (item.is_goal ? '☐' : '✓') + block.innerText + N;
+                itemText += (isGoal(item) ? '☐' : '✓') + block.innerText + N;
 
             });
             itemText += N;
