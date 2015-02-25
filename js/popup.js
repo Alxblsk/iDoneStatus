@@ -51,15 +51,18 @@
         var button = event.target;
         var filterClone = getTemplateContent('#link__report', '#reportTemplate');
         var configurableArea = document.querySelector('#configure');
+        var reportNode = document.querySelector('#reportDonesNode');
 
-        configurableArea.appendChild(filterClone);
-
-        var link = 'mailto:xxx@xx.com?cc=xxx@xx.com';
-        link += '&subject=Daily Status';
-        link += '&body=' + localStorage.getItem('lastText');
-        document.querySelector('#sendReportLink').href = link;
-
-        button.classList.toggle('header__item_open');
+        if (reportNode) {
+            reportNode.classList.toggle('hide');
+        } else {
+            configurableArea.appendChild(filterClone);
+            var link = 'mailto:xxx@xx.com?cc=xxx@xx.com';
+            link += '&subject=Daily Status for';
+            link += '&body=' + localStorage.getItem('lastText');
+            document.querySelector('#reportByText').href = link;
+            //document.querySelector('#reportByHTML').addEventListener('click', null, false);
+        }
 
         //App.sendReport({
         //    html: localStorage.getItem('last')
@@ -81,9 +84,10 @@
         var button = event.target;
         var filterClone = getTemplateContent('#link__filter', '#filterTemplate');
         var configurableArea = document.querySelector('#configure');
+        var filterNode = document.querySelector('#getDones');
 
-        if (document.querySelector('#getDonesButton')) {
-            configurableArea.classList.toggle('hide');
+        if (filterNode) {
+            filterNode.classList.toggle('hide');
         } else {
             configurableArea.appendChild(filterClone);
             document.querySelector('#getDonesButton').addEventListener('click', getDones, false);

@@ -6,7 +6,7 @@ body {
     width: 400px;
 }
 
-.hide {
+body .hide {
     display: none;
 }
 
