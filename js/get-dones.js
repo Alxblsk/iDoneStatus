@@ -5,6 +5,8 @@
     var PROFILE_HEADER_INNER = '{niceName} <span class="user_owner">({ownerId})</span>';
     var PROFILE_DONE = '<p><span class="done-type">{doneType}</span> {doneContent}</p>';
 
+    var messageReplaces = window.extraReplaces || [];
+
     /**
      * Make 'get dones' request
      */
@@ -116,9 +118,15 @@
                 .replace('{ownerId}', ownerName);
 
             parsedResults[ownerName].forEach(function(item) {
+                var message = item.markedup_text;
+
+                messageReplaces && messageReplaces.forEach(function(replaceItem) {
+                    message = message.replace(replaceItem.find, replaceItem.replaceWith)
+                });
+
                 itemHtml += PROFILE_DONE
                     .replace('{doneType}', isGoal(item) ? '☐' : '✓')
-                    .replace('{doneContent}', item.markedup_text);
+                    .replace('{doneContent}', message);
             });
 
             donesHtml += itemHtml;
