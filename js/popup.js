@@ -61,12 +61,18 @@
             link += '&subject=Daily Status for';
             link += '&body=' + localStorage.getItem('lastText');
             document.querySelector('#reportByText').href = link;
-            //document.querySelector('#reportByHTML').addEventListener('click', null, false);
+            document.querySelector('#reportByHTML').addEventListener('click', reportHTML, false);
         }
+    }
 
-        //App.sendReport({
-        //    html: localStorage.getItem('last')
-        //})
+    function reportHTML() {
+        if (confirm("Send this report?")) {
+            App.sendReport({
+                html: localStorage.getItem('last')
+            })
+        } else {
+            alert("We declined sending of selected report");
+        }
     }
 
     /**

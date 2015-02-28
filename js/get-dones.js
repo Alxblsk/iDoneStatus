@@ -3,7 +3,7 @@
 
     var PROFILE_HEADER = '<h3 id="user_{niceId}">{ownerId}</h3>';
     var PROFILE_HEADER_INNER = '{niceName} <span class="user_owner">({ownerId})</span>';
-    var PROFILE_DONE = '<p class="{doneType}">{doneContent}</p>';
+    var PROFILE_DONE = '<p><span class="done-type">{doneType}</span> {doneContent}</p>';
 
     /**
      * Make 'get dones' request
@@ -117,7 +117,7 @@
 
             parsedResults[ownerName].forEach(function(item) {
                 itemHtml += PROFILE_DONE
-                    .replace('{doneType}', isGoal(item) ? 'goal' : 'done')
+                    .replace('{doneType}', isGoal(item) ? '☐' : '✓')
                     .replace('{doneContent}', item.markedup_text);
             });
 
