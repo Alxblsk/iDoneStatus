@@ -63,6 +63,6 @@ App.request = function(options) {
             }
         };
     });
-}
+};
 
 })(StatusApp);

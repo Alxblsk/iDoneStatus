@@ -47,37 +47,6 @@
     /**
      *
      */
-    function reportDones(event) {
-        var button = event.target;
-        var filterClone = getTemplateContent('#link__report', '#reportTemplate');
-        var configurableArea = document.querySelector('#configure');
-        var reportNode = document.querySelector('#reportDonesNode');
-
-        if (reportNode) {
-            reportNode.classList.toggle('hide');
-        } else {
-            configurableArea.appendChild(filterClone);
-            var link = 'mailto:xxx@xx.com?cc=xxx@xx.com';
-            link += '&subject=Daily Status for';
-            link += '&body=' + localStorage.getItem('lastText');
-            document.querySelector('#reportByText').href = link;
-            document.querySelector('#reportByHTML').addEventListener('click', reportHTML, false);
-        }
-    }
-
-    function reportHTML() {
-        if (confirm("Send this report?")) {
-            App.sendReport({
-                html: localStorage.getItem('last')
-            })
-        } else {
-            alert("We declined sending of selected report");
-        }
-    }
-
-    /**
-     *
-     */
     function loadLastResponse() {
         var container = wrapper.querySelector('#donesResponse');
         var lastResponse = localStorage.getItem('last');
@@ -117,7 +86,6 @@
         wrapper.appendChild(headerClone);
         wrapper.appendChild(clone);
         wrapper.querySelector('#profile').appendChild(profileClone);
-        wrapper.querySelector('#reportDones').addEventListener('click', reportDones, false);
         wrapper.querySelector('#filterDones').addEventListener('click', filterDones, false);
 
         loadLastResponse();
