@@ -32,6 +32,8 @@
 
         return document.importNode(template.content, true);
     }
+    
+    App.getTemplateContent = getTemplateContent;
 
     /**
      *
@@ -87,8 +89,24 @@
         wrapper.appendChild(clone);
         wrapper.querySelector('#profile').appendChild(profileClone);
         wrapper.querySelector('#filterDones').addEventListener('click', filterDones, false);
+        wrapper.querySelector('#chooseTeam').addEventListener('click', loadTeamsList, false);
 
         loadLastResponse();
+    }
+    
+    /**
+     * Displayed active groups
+     */
+    function loadTeamsList(event) {
+        var configurableArea = document.querySelector('#configure');
+        
+        App.getTeams().then(function(items) {
+            var content = getTemplateContent('#link__teams', '#teamsListTemplate')
+                .querySelector('#teamsList');
+            content.innerHTML = items;
+                
+            configurableArea.appendChild(content);
+        })
     }
 
     /**
