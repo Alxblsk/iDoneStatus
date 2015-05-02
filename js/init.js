@@ -5,22 +5,14 @@
     var wrapper = document.querySelector('#wrapper');
     var testNode = document.getElementById("testResponse");
     
-    var emitter = new EventEmitter()
+    var emitter = new EventEmitter();
 
-    /**
-     *
-     * @param linkSelector
-     * @param templateSelector
-     * @returns {Node}
-     */
-    function getTemplateContent(linkSelector, templateSelector) {
+    App.getTemplateContent = function getTemplateContent(linkSelector, templateSelector) {
         var link = document.querySelector(linkSelector),
             template = link.import.querySelector(templateSelector);
 
         return document.importNode(template.content, true);
     }
-    
-    App.getTemplateContent = getTemplateContent;
     
     App.listeners = function listeners(actions, type) {
 		if (!type) return;
@@ -41,6 +33,30 @@
         off: emitter.off.bind(emitter),
         trigger: emitter.trigger.bind(emitter)
     }
+    
+    App.modifyProto = function(proto, actions, callbacks) {
+        if (!proto || !actions) return;
+        callbacks = callbacks || {};
+        
+        proto.createdCallback = function() {
+            callbacks.createdCallback && callbacks.createdCallback.apply(this, arguments);
+        };
+        
+        proto.attachedCallback = function() {
+    	    App.listeners(actions, 'add');
+            callbacks.attachedCallback && callbacks.attachedCallback.apply(this, arguments);;
+    	};
+    	
+    	proto.detachedCallback = function() {
+    		App.listeners(actions, 'remove');
+            callbacks.detachedCallback && callbacks.detachedCallback.apply(this, arguments);;
+    	};
+        
+        proto.attributeChangedCallback = function() {
+            callbacks.attributeChangedCallback && callbacks.attributeChangedCallback.apply(this, arguments);;
+        };
+        
+    }
 
     /**
      * Authentication request
@@ -59,17 +75,6 @@
 
     /**
      *
-     * @param event
-     */
-//    function getDones(event) {
-//        App.getDones({
-//            done_date: wrapper.querySelector('#doneDate').value,
-//            tags: wrapper.querySelector('#hashtag').value
-//        });
-//    }
-
-    /**
-     *
      */
     function loadLastResponse() {
         var container = wrapper.querySelector('#donesResponse');
@@ -79,35 +84,18 @@
         }
     }
 
-//    function filterDones(event) {
-//        var button = event.target;
-//        var filterClone = getTemplateContent('#link__filter', '#filterTemplate');
-//        var configurableArea = document.querySelector('#configure');
-//        var filterNode = document.querySelector('#getDones');
-//
-//        if (filterNode) {
-//            filterNode.classList.toggle('hide');
-//        } else {
-//            configurableArea.appendChild(filterClone);
-//            document.querySelector('#getDonesButton').addEventListener('click', getDones, false);
-//        }
-//        button.classList.toggle('header__item_open');
-//    }
-
     /**
      *
      */
     function preparePopup() {
-        var clone = getTemplateContent('#link__dones', '#donesTemplate'),
-            headerClone = getTemplateContent('#link__header', '#headerTemplate'),
-            profileClone = getTemplateContent('#link__profile', '#profileTemplate');
+        var clone = App.getTemplateContent('#link__dones', '#donesTemplate'),
+            headerClone = App.getTemplateContent('#link__header', '#headerTemplate'),
+            profileClone = App.getTemplateContent('#link__profile', '#profileTemplate');
 
         testNode.classList.add('hide');
         wrapper.appendChild(headerClone);
         wrapper.appendChild(clone);
         wrapper.querySelector('#profile').appendChild(profileClone);
-        //wrapper.querySelector('#filterDones').addEventListener('click', filterDones, false);
-        //wrapper.querySelector('#chooseTeam').addEventListener('click', loadTeamsList, false);
 
         loadLastResponse();
     }
@@ -119,7 +107,7 @@
         var configurableArea = document.querySelector('#configure');
         
         App.getTeams().then(function(items) {
-            var content = getTemplateContent('#link__teams', '#teamsListTemplate');
+            var content = App.getTemplateContent('#link__teams', '#teamsListTemplate');
             var listContainer = content.querySelector('#teamsList');
             listContainer.innerHTML = items;
                 

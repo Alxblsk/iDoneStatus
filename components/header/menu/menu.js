@@ -2,10 +2,10 @@
 	'use strict';
 	
 	var proto = Object.create(HTMLElement.prototype);
+	
 	var actions = {
 		'ids-menu-filter-link': {
 			click: function() {
-				console.log('click', this);
 				App.events.trigger('header-menu-filter', arguments);
 			}
 		},
@@ -20,21 +20,13 @@
 			}
 		}
 	};
-	
-	proto.createdCallback = function() {
-		var content = App.getTemplateContent('#link-menu-template', '#ids-menu-template');
-	  	this.appendChild(content);	
-	};
-	
-	proto.attachedCallback = function() {
-	    App.listeners(actions, 'add');
-	};
-	
-	proto.detachedCallback = function() {
-		App.listeners(actions, 'remove');
-	};
-	
-	document.registerElement('ids-menu', {
-		prototype: proto
+
+	App.modifyProto(proto, actions, {
+		createdCallback: function() {
+			var content = App.getTemplateContent('#link-menu-template', '#ids-menu-template');
+		  	this.appendChild(content);	
+		}
 	});
+	
+	document.registerElement('ids-menu', { prototype: proto	});
 })(StatusApp);

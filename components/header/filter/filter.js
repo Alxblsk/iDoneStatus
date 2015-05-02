@@ -40,25 +40,16 @@
 	
 	App.events.on('header-menu-filter', function(evnt) {
 		toggleFilter();
-		console.log('on filter', arguments);
 	});
 	
-	proto.createdCallback = function() {
-		$el = this;
-		
-		var content = App.getTemplateContent('#link-filter-template', '#ids-filter-template');
-	  	this.appendChild(content);	
-	};
-	
-	proto.attachedCallback = function() {
-	    App.listeners(actions, 'add');
-	};
-	
-	proto.detachedCallback = function() {
-		App.listeners(actions, 'remove');
-	};
-	
-	document.registerElement('ids-filter', {
-		prototype: proto
+	App.modifyProto(proto, actions, {
+		createdCallback: function() {
+			var content = App.getTemplateContent('#link-filter-template', '#ids-filter-template');
+
+			$el = this;
+		  	$el.appendChild(content);	
+		}
 	});
+	
+	document.registerElement('ids-filter', { prototype: proto });
 })(StatusApp);
