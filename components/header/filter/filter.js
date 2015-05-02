@@ -1,18 +1,23 @@
 (function(App) {
 	'use strict';
 	
+	// Predefined element container
 	var $el = null;
+	
+	// Object for keeping data
 	var data = {
 		date: null,
 		tags: null	
 	};
+	
+	// New prototype for future tag
 	var proto = Object.create(HTMLElement.prototype);
 	
+	// Actions on elements
 	var actions = {
 		'ids-filter-submit-button': {
 			click: function(event) {
 				getDones();
-				console.log(data);
 			}
 		},
 		'ids-filter-date': {
@@ -27,10 +32,16 @@
 		}
 	};
 	
+	/**
+	 * Toggles the filter
+	 */
 	function toggleFilter() {
 		$el.classList.toggle('hide');
 	}
 	
+	/**
+	 * Gets dones for selected parameters
+	 */
 	function getDones(event) {
         App.getDones({
             done_date: data.date,
@@ -38,10 +49,12 @@
         });
     }
 	
+	// Runs toggling on triggered event 
 	App.events.on('header-menu-filter', function(evnt) {
 		toggleFilter();
 	});
 	
+	// Updting element events
 	App.modifyProto(proto, actions, {
 		createdCallback: function() {
 			var content = App.getTemplateContent('#link-filter-template', '#ids-filter-template');

@@ -1,8 +1,10 @@
 (function(App) {
 	'use strict';
 	
+	// New prototype for future tag
 	var proto = Object.create(HTMLElement.prototype);
 	
+	// Actions on elements
 	var actions = {
 		'ids-menu-filter-link': {
 			click: function() {
@@ -21,6 +23,7 @@
 		}
 	};
 
+	// Updting element events
 	App.modifyProto(proto, actions, {
 		createdCallback: function() {
 			var content = App.getTemplateContent('#link-menu-template', '#ids-menu-template');

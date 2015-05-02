@@ -107,7 +107,6 @@
                 }
             });
             localStorage.setItem('last', donesNode.innerHTML);
-            generateTextReport(parsedResults, currentProfiles);
         });
 
         for (var ownerName in parsedResults) {
@@ -160,29 +159,5 @@
         });
 
         return Promise.all(requests);
-    }
-
-    /**
-     * Plain text status generator
-     * @param parsedResults
-     * @param currentProfiles
-     */
-    function generateTextReport(parsedResults, currentProfiles) {
-        var donesText = '';
-        var N = '%0D%0A';
-        var block = document.createElement('div');
-        for (var ownerName in parsedResults) {
-            var itemText = currentProfiles[ownerName].nicest_name + N;
-
-            parsedResults[ownerName].forEach(function(item) {
-                block.innerHTML = item.markedup_text;
-                itemText += (isGoal(item) ? '☐' : '✓') + block.innerText + N;
-
-            });
-            itemText += N;
-            donesText += itemText;
-        }
-        donesText = donesText.replace(/[\n\s]+/ig, '%20');
-        localStorage.setItem('lastText', donesText);
     }
 })(StatusApp);
