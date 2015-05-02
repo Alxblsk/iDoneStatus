@@ -1,0 +1,19 @@
+<template id="ids-teams-template">
+    <style>
+        .teams {
+              margin: 0;
+              padding: 5px 6px; 
+              list-style: none;
+              font-size: 14px;
+        }
+        
+        .teams__item {
+            font-size: 14px;
+        }
+    </style>
+    <ul id="ids-teams-list" class="teams"></ul>
+</template>
+
+<template id="ids-team-template">
+    <li class="teams__item" data-name="{shortName}">{teamName}</li>
+</template>

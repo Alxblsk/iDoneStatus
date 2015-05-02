@@ -18,7 +18,7 @@
 		}, 
 		'ids-menu-teams-link': {
 			click: function() {
-				console.log('click', this);
+				App.events.trigger('header-menu-teams', arguments);
 			}
 		}
 	};
