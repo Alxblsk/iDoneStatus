@@ -61,12 +61,12 @@
      *
      * @param event
      */
-    function getDones(event) {
-        App.getDones({
-            done_date: wrapper.querySelector('#doneDate').value,
-            tags: wrapper.querySelector('#hashtag').value
-        });
-    }
+//    function getDones(event) {
+//        App.getDones({
+//            done_date: wrapper.querySelector('#doneDate').value,
+//            tags: wrapper.querySelector('#hashtag').value
+//        });
+//    }
 
     /**
      *
@@ -79,20 +79,20 @@
         }
     }
 
-    function filterDones(event) {
-        var button = event.target;
-        var filterClone = getTemplateContent('#link__filter', '#filterTemplate');
-        var configurableArea = document.querySelector('#configure');
-        var filterNode = document.querySelector('#getDones');
-
-        if (filterNode) {
-            filterNode.classList.toggle('hide');
-        } else {
-            configurableArea.appendChild(filterClone);
-            document.querySelector('#getDonesButton').addEventListener('click', getDones, false);
-        }
-        button.classList.toggle('header__item_open');
-    }
+//    function filterDones(event) {
+//        var button = event.target;
+//        var filterClone = getTemplateContent('#link__filter', '#filterTemplate');
+//        var configurableArea = document.querySelector('#configure');
+//        var filterNode = document.querySelector('#getDones');
+//
+//        if (filterNode) {
+//            filterNode.classList.toggle('hide');
+//        } else {
+//            configurableArea.appendChild(filterClone);
+//            document.querySelector('#getDonesButton').addEventListener('click', getDones, false);
+//        }
+//        button.classList.toggle('header__item_open');
+//    }
 
     /**
      *

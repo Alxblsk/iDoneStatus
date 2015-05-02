@@ -21,8 +21,6 @@
 		}
 	};
 	
-
-	
 	proto.createdCallback = function() {
 		var content = App.getTemplateContent('#link-menu-template', '#ids-menu-template');
 	  	this.appendChild(content);	

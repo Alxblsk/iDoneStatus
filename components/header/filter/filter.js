@@ -1,20 +1,45 @@
 (function(App) {
 	'use strict';
 	
+	var $el = null;
+	var data = {
+		date: null,
+		tags: null	
+	};
 	var proto = Object.create(HTMLElement.prototype);
 	
 	var actions = {
-		'idc-filter-submit-button': {
-			click: function() {
-				console.log(arguments);
+		'ids-filter-submit-button': {
+			click: function(event) {
+				getDones();
+				console.log(data);
+			}
+		},
+		'ids-filter-date': {
+			change: function(event) {
+				data.date = event.srcElement.value;
+			}
+		},
+		'ids-filter-tags': {
+			change: function() {
+				data.tags = event.srcElement.value;
 			}
 		}
 	};
 	
-	var $el = null;
+	function toggleFilter() {
+		$el.classList.toggle('hide');
+	}
+	
+	function getDones(event) {
+        App.getDones({
+            done_date: data.date,
+            tags: data.tags
+        });
+    }
 	
 	App.events.on('header-menu-filter', function(evnt) {
-		$el.classList.toggle('hide');
+		toggleFilter();
 		console.log('on filter', arguments);
 	});
 	
