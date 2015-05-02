@@ -1,5 +1,9 @@
-<template id="filterTemplate">
+<template id="ids-filter-template">
     <style>
+        .hide .request-form {
+            display: none;
+        }
+        
         .request-form {
             display: flex;
             justify-content: space-between;
@@ -67,9 +71,9 @@
         }
     </style>
 
-    <div id="getDones" class="request-form">
-        <input type="date" id="doneDate" class="request-form__date">
-        <input type="text" placeholder="tags (comma-separated)" id="hashtag" class="request-form__hashtag">
-        <button class="request-form__get" id="getDonesButton">GET</button>
+    <div class="request-form">
+        <input type="date" class="request-form__date">
+        <input type="text" placeholder="tags (comma-separated)" class="request-form__hashtag">
+        <button class="request-form__get" id="idc-filter-submit-button">GET</button>
     </div>
 </template>

@@ -13,35 +13,6 @@
             justify-content: space-between;
         }
 
-        .header__items {
-            display: inline-block;
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-        }
-
-        .header__item {
-            display: inline-block;
-            height: 25px;
-            padding: 0 5px;
-            line-height: 25px;
-            font-size: 14px;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-
-        .header__item:hover {
-            background: whitesmoke;
-        }
-
-        .header__item_open {
-            background: #ddd;
-        }
-
-        .header__item:active {
-            background: white;
-        }
-
         .configure {
             margin: 0 -10px;
             padding: 0 10px;
@@ -50,13 +21,11 @@
     </style>
     <div class="header">
         <div class="header__display">
-            <ul class="header__items">
-                <li class="header__item" id="filterDones">Filter</li>
-                <li class="header__item">Options</li>
-                <li class="header__item" id="chooseTeam">Teams</li>
-            </ul>
+            <ids-menu></ids-menu>
             <div class="profile" id="profile"></div>
         </div>
-        <div class="configure" id="configure"></div>
+        <div class="configure" id="configure">
+            <ids-filter class="hide"></ids-filter>
+        </div>
     </div>
 </template>

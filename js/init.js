@@ -1,24 +1,11 @@
-(function(App) {
+(function(App, EventEmitter) {
     'use strict';
 
     var token = window.token || 'token_should_be_here';
     var wrapper = document.querySelector('#wrapper');
     var testNode = document.getElementById("testResponse");
-
-    /**
-     * Authentication request
-     */
-    function makeConnectionRequest() {
-        var testRequest = App.request({
-            type: 'GET',
-            url: 'https://idonethis.com/api/v0.1/noop/',
-            headers: {
-                Authorization: 'Token ' + token
-            }
-        });
-
-        testRequest.then(testConnectionCallback, testConnectionError);
-    }
+    
+    var emitter = new EventEmitter()
 
     /**
      *
@@ -34,6 +21,41 @@
     }
     
     App.getTemplateContent = getTemplateContent;
+    
+    App.listeners = function listeners(actions, type) {
+		if (!type) return;
+		
+		Object.keys(actions).forEach(function(actionName) {
+			var action = actions[actionName];
+			var $el = document.getElementById(actionName);
+			
+			Object.keys(action).forEach(function(actionEvent) {
+				$el[type + 'EventListener'](actionEvent, action[actionEvent], false);
+			});		
+		});	
+	}
+    
+    App.events = {
+        on: emitter.on.bind(emitter),
+        once: emitter.once.bind(emitter),
+        off: emitter.off.bind(emitter),
+        trigger: emitter.trigger.bind(emitter)
+    }
+
+    /**
+     * Authentication request
+     */
+    function makeConnectionRequest() {
+        var testRequest = App.request({
+            type: 'GET',
+            url: 'https://idonethis.com/api/v0.1/noop/',
+            headers: {
+                Authorization: 'Token ' + token
+            }
+        });
+
+        testRequest.then(testConnectionCallback, testConnectionError);
+    }
 
     /**
      *
@@ -72,10 +94,6 @@
         button.classList.toggle('header__item_open');
     }
 
-    function login() {
-        console.log('login button');
-    }
-
     /**
      *
      */
@@ -88,8 +106,8 @@
         wrapper.appendChild(headerClone);
         wrapper.appendChild(clone);
         wrapper.querySelector('#profile').appendChild(profileClone);
-        wrapper.querySelector('#filterDones').addEventListener('click', filterDones, false);
-        wrapper.querySelector('#chooseTeam').addEventListener('click', loadTeamsList, false);
+        //wrapper.querySelector('#filterDones').addEventListener('click', filterDones, false);
+        //wrapper.querySelector('#chooseTeam').addEventListener('click', loadTeamsList, false);
 
         loadLastResponse();
     }
@@ -101,12 +119,12 @@
         var configurableArea = document.querySelector('#configure');
         
         App.getTeams().then(function(items) {
-            var content = getTemplateContent('#link__teams', '#teamsListTemplate')
-                .querySelector('#teamsList');
-            content.innerHTML = items;
+            var content = getTemplateContent('#link__teams', '#teamsListTemplate');
+            var listContainer = content.querySelector('#teamsList');
+            listContainer.innerHTML = items;
                 
             configurableArea.appendChild(content);
-        })
+        });
     }
 
     /**
@@ -141,4 +159,4 @@
     }
 
     init();
-})(StatusApp);
+})(StatusApp, EventEmitter);

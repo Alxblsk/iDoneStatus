@@ -1,0 +1,38 @@
+<template id="ids-menu-template">
+	<style>
+		.menu__items {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .menu__item {
+            display: inline-block;
+            height: 25px;
+            padding: 0 5px;
+            line-height: 25px;
+            font-size: 14px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .menu__item:hover {
+            background: whitesmoke;
+        }
+
+        .menu__item_open {
+            background: #ddd;
+        }
+
+        .menu__item:active {
+            background: white;
+        }
+	</style>
+	
+	<ul class="menu__items">
+        <li class="menu__item" id="ids-menu-filter-link">Filter</li>
+        <li class="menu__item" id="ids-menu-options-link">Options</li>
+        <li class="menu__item" id="ids-menu-teams-link">Teams</li>
+    </ul>
+</template>
