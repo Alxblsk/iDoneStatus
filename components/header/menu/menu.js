@@ -8,20 +8,29 @@
 	var actions = {
 		'ids-menu-filter-link': {
 			click: function() {
-				App.events.trigger('header-menu-filter', arguments);
+				setTag('ids-filter');
 			}
 		},
 		'ids-menu-options-link': {
-			click: function() {
-				console.log('click', this);
-			}
+			click: function() {}
 		}, 
 		'ids-menu-teams-link': {
 			click: function() {
-				App.events.trigger('header-menu-teams', arguments);
+				setTag('ids-teams');
 			}
 		}
 	};
+	
+	/**
+	 * Removes an ID of current tagname if already selected
+	 */
+	function setTag(tagname) {
+		if (App.currentOpenedMenuId.id === tagname) {
+			App.currentOpenedMenuId.id = '';
+		} else {
+			App.currentOpenedMenuId.id = tagname;
+		}
+	}
 
 	// Updting element events
 	App.modifyProto(proto, actions, {

@@ -27,18 +27,6 @@
 		}
 	});
     
-    // Runs toggling on triggered event 
-	App.events.on('header-menu-teams', function(evnt) {
-		toggleFilter();
-	});
-    
-    /**
-	 * Toggles the filter
-	 */
-	function toggleFilter() {
-		$el.classList.toggle('hide');
-	}
-	
 	function getTeams() {
         var testRequest = App.request({
             type: 'GET',

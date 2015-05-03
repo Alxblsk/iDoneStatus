@@ -33,13 +33,6 @@
 	};
 	
 	/**
-	 * Toggles the filter
-	 */
-	function toggleFilter() {
-		$el.classList.toggle('hide');
-	}
-	
-	/**
 	 * Gets dones for selected parameters
 	 */
 	function getDones(event) {
@@ -48,11 +41,6 @@
             tags: data.tags
         });
     }
-	
-	// Runs toggling on triggered event 
-	App.events.on('header-menu-filter', function(evnt) {
-		toggleFilter();
-	});
 	
 	// Updting element events
 	App.modifyProto(proto, actions, {

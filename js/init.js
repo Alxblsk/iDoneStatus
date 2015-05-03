@@ -88,31 +88,11 @@
      *
      */
     function preparePopup() {
-        var clone = App.getTemplateContent('#link__dones', '#donesTemplate'),
-            headerClone = App.getTemplateContent('#link__header', '#headerTemplate'),
-            profileClone = App.getTemplateContent('#link__profile', '#profileTemplate');
+        var clone = App.getTemplateContent('#link__dones', '#donesTemplate');
 
         testNode.classList.add('hide');
-        wrapper.appendChild(headerClone);
         wrapper.appendChild(clone);
-        wrapper.querySelector('#profile').appendChild(profileClone);
-
         loadLastResponse();
-    }
-    
-    /**
-     * Displayed active groups
-     */
-    function loadTeamsList(event) {
-        var configurableArea = document.querySelector('#configure');
-        
-        App.getTeams().then(function(items) {
-            var content = App.getTemplateContent('#link__teams', '#teamsListTemplate');
-            var listContainer = content.querySelector('#teamsList');
-            listContainer.innerHTML = items;
-                
-            configurableArea.appendChild(content);
-        });
     }
 
     /**
